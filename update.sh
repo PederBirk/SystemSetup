@@ -3,4 +3,5 @@
 cp ~/.config/qtile ~/Repos/SystemSetup -r      
 cp ~/.config/rofi ~/Repos/SystemSetup -r 
 cp ~/.config/kitty ~/Repos/SystemSetup -r 
-cp ~/.config/conky ~/Repos/SystemSetup -r 
+cp ~/.config/conky ~/Repos/SystemSetup -r
+cp ~/.config/starship.toml ~/Repos/SystemSetup
