@@ -1,0 +1,3 @@
+packages:
+lib32-gmp <- Needed for ubisoft connect (mabye also fixed some graphics stuff with picom and wine?)
+caprine <- facebook messenger client 

@@ -1,5 +1,5 @@
 configuration {
-    font:				"FiraCode Nerd Font 10";
+    font:				"FiraCode Nerd Font 13";
     show-icons:				true;
     display-drun:			"Apps";
     drun-display-format:	"{name}";

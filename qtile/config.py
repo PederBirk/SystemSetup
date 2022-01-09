@@ -34,7 +34,7 @@ import subprocess
 import os
 
 mod = "mod4"
-terminal = "kitty -e zsh"
+terminal = "kitty"
 
 keys = [
     # Media keys
@@ -75,6 +75,7 @@ keys = [
         desc="Grow window down"),
     Key([mod, "control"], "Up", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod, "control"], "f", lazy.window.toggle_fullscreen(), desc="Toggle floating window"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -82,19 +83,21 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "d", lazy.spawn(terminal), desc="Launch terminal"),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "space", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
-    Key([mod], "d", lazy.spawn("rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"), 
+    Key([mod], "Return", lazy.spawn("rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"), 
     desc="Open rofi"),
-    Key([mod], "t", lazy.spawn("rofi -show window -config ~/.config/rofi/rofidmenu.rasi"),
+    Key([mod], "Tab", lazy.spawn("rofi -show window -config ~/.config/rofi/rofidmenu.rasi"),
     desc="Open rofi window menu"),
+    Key([mod], "p", lazy.spawn("rofi -modi lpass:rofi-lpass -show lpass -config ~/.config/rofi/rofidmenu.rasi"),
+    desc="Open LastPass"),
     Key([mod, "control"], "e", lazy.spawn("rofi -show p -modi p:rofi-power-menu -config ~/.config/rofi/powermenu.rasi"),
     desc="Open power menu"),
 ]
@@ -130,7 +133,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(**layout_theme),
+    layout.MonadTall(**layout_theme),
     # layout.MonadWide(**layout_theme),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -158,18 +161,11 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 
-def sep():
-    return widget.TextBox(
-                       text = "🞙",
-                       padding = 2,
-                       foreground = colors[4],
-                       fontsize = 12
-                       )
-
 screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.Spacer(length = 20),
             widget.GroupBox(
                        font = "Ubuntu Bold",
                        fontsize = 16,
@@ -192,62 +188,28 @@ screens = [
                        ),
             widget.Spacer(background = colors[0]),
             widget.Clock(
-                       fontsize=17,
+                       fontsize=15,
                        foreground = colors[2],
                        format = "%A, %B %d - %H:%M ",
                        margin = 0,
                        padding = 0),
                        
                        widget.Spacer(background = colors[0]),
-             widget.TextBox(
-                       text = " 🌡",
-                       padding = 2,
-                       foreground = "#20ccd8",
-                       fontsize = 11
-                       ),
-              widget.ThermalSensor(
-                       foreground = colors[2],
-                       threshold = 90,
-                       padding = 5
-                       ),
-                       sep(),
               widget.TextBox(
-                       text = " ⟳",
-                       padding = 2,
-                       foreground = "#32d820",
-                       fontsize = 16
-                       ),
-              widget.CheckUpdates(
-                       update_interval = 1800,
-                       distro = "Arch_checkupdates",
-                       display_format = "{updates} Updates",
+                      text = " ",
                        foreground = colors[2],
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('kitty -e sudo pacman -Syyu')},
-                       ),
-                       sep(),
-              widget.TextBox(
-                       text = " 🖬",
-                       foreground = "#d8204b",
                        padding = 0,
                        fontsize = 14
                        ),
-              widget.Memory(
-                       foreground = colors[2],
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('kitty -e htop')},
-                       padding = 5
-                       ),
-                       sep(),
-              widget.TextBox(
-                      text = " Vol:",
-                       foreground = colors[2],
-                       padding = 0
-                       ),
-              widget.PulseVolume(
+              widget.Volume(
                        foreground = colors[2],
                        padding = 5,
-                       update_interval = 0.1
+                       update_interval = 0.1,
+                       volume_app = "pavucontrol",
+                       device = "pulse"
                        ),
-                       widget.Systray()
+                       widget.Systray(padding = 5),
+                       widget.Spacer(length = 20)
             ],
             opacity=1.0, size=20
         ),
