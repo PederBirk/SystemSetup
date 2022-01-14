@@ -1,19 +1,20 @@
 # ~/.config/starship.toml
 
 [character]
-error_symbol = "[✖](bold red) "
+error_symbol = "[✖ ](bold red)"
+success_symbol = "[❯](bold green)"
 
 [cmd_duration]
 min_time = 5_000  # Show command duration over 10,000 milliseconds (=10 sec)
-format = " took [$duration]($style)"
+format = "took [$duration]($style)"
 
 [directory]
 truncation_length = 5
 format = "[$path]($style)[$lock_symbol]($lock_style) "
 
 [git_branch]
-format = " [$symbol$branch]($style) "
-symbol = " "
+format = "[$symbol $branch ]($style)"
+symbol = ""
 style = "bold yellow"
 
 [git_commit]
@@ -21,7 +22,7 @@ commit_hash_length = 8
 style = "bold white"
 
 [git_state]
-format = '[\($state( $progress_current of $progress_total)\)]($style) '
+format = '[\($state( $progress_current of $progress_total)\)]($style)'
 
 [hostname]
 ssh_only = false
@@ -31,12 +32,12 @@ style = "bold dimmed white"
 disabled = true
 
 [julia]
-format = "[$symbol$version]($style) "
-symbol = "ஃ "
+format = "[$symbol$version]($style)"
+symbol = "ஃ"
 style = "bold green"
 
 [memory_usage]
-format = "$symbol[${ram}( | ${swap})]($style) "
+format = "$symbol[${ram}( | ${swap})]($style)"
 threshold = 70
 style = "bold dimmed white"
 disabled = false
@@ -45,18 +46,22 @@ disabled = false
 disabled = true
 
 [python]
-format = "[$symbol$version]($style) "
+format = "[$symbol $version]($style)"
+symbol = ""
 style = "bold green"
 
 [rust]
-format = "[$symbol$version]($style) "
+format = "[$symbol$version]($style)"
 style = "bold green"
 
 [time]
 time_format = "%T"
-format = "🕙 $time($style) "
+format = " $time($style) "
 style = "bright-white"
-disabled = false
+disabled = true
+
+[dotnet]
+symbol=" "
 
 [username]
 style_user = "bold dimmed blue"
