@@ -1,3 +1,24 @@
 packages:
+Before leaving boot media!
+networkmanager (sp?)
+nano
+
+kitty
+starship
+fish
+firefox (good to start with)
+rofi
+conky
+picom
+
+lxsession
+lxappearance
+git
+fira code
+fira code nerd
+nitrogen
+
+
 lib32-gmp <- Needed for ubisoft connect (mabye also fixed some graphics stuff with picom and wine?)
 caprine <- facebook messenger client 
+

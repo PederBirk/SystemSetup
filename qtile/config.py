@@ -29,19 +29,20 @@ from libqtile import qtile
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
 import subprocess
 import os
 
 mod = "mod4"
 terminal = "kitty"
 
+rofi_path = "/home/peder/.config/rofi/bin/"
+
 keys = [
     # Media keys
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 2%+")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 2%-")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("volume_notify up")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("volume_notify down")),
 
-    Key([], "XF86AudioMute", lazy.spawn("amixer -D pulse sset toggle")),
+    Key([], "XF86AudioMute", lazy.spawn("volume_notify mute")),
 
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
@@ -92,18 +93,18 @@ keys = [
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
-    Key([mod], "Return", lazy.spawn("rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"), 
+    Key([mod], "Return", lazy.spawn(rofi_path+"launcher_colorful"), 
     desc="Open rofi"),
-    Key([mod], "Tab", lazy.spawn("rofi -show window -config ~/.config/rofi/rofidmenu.rasi"),
+    Key([mod], "Tab", lazy.spawn("rofi -show window -theme ~/.config/rofi/launchers/colorful/style_2.rasi"),
     desc="Open rofi window menu"),
     Key([mod], "p", lazy.spawn("rofi -modi lpass:rofi-lpass -show lpass -config ~/.config/rofi/rofidmenu.rasi"),
     desc="Open LastPass"),
-    Key([mod, "control"], "e", lazy.spawn("rofi -show p -modi p:rofi-power-menu -config ~/.config/rofi/powermenu.rasi"),
+    Key([mod, "control"], "e", lazy.spawn(rofi_path+"menu_powermenu"),
     desc="Open power menu"),
+    Key([mod], "s", lazy.spawn("switch-sound.sh"), desc="Open sound output menu"),
 ]
 
-groups = [Group(i) for i in "123456789"]
-
+groups = [Group(i) for i in "123456789"] 
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
@@ -153,7 +154,7 @@ colors = [["#282c34", "#282c34"], # panel background
 
 
 widget_defaults = dict(
-    font="Ubuntu Mono",
+    font="Ubuntu",
     fontsize = 14,
     padding = 2,
     background=colors[0]
@@ -198,8 +199,9 @@ screens = [
               widget.TextBox(
                       text = " ",
                        foreground = colors[2],
-                       padding = 0,
-                       fontsize = 14
+                       padding=0,
+                       fontsize=14,
+                       font="FiraCode Nerd Font"
                        ),
               widget.Volume(
                        foreground = colors[2],
@@ -237,9 +239,10 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
     Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(wm_class='Unity'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-])
+], **layout_theme)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
