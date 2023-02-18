@@ -62,6 +62,7 @@ disabled = true
 
 [dotnet]
 symbol=" "
+format = "via [$symbol($version )(什 $tfm )]($style)"
 
 [username]
 style_user = "bold dimmed blue"

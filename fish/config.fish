@@ -21,5 +21,13 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# Ctrl-backspace
+bind \b backward-kill-word
+
 # Starship prompt
 starship init fish | source
