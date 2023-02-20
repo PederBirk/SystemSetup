@@ -97,8 +97,6 @@ keys = [
     desc="Open rofi"),
     Key([mod], "Tab", lazy.spawn("rofi -show window -theme ~/.config/rofi/launchers/colorful/style_2.rasi"),
     desc="Open rofi window menu"),
-    Key([mod], "p", lazy.spawn("rofi -modi lpass:rofi-lpass -show lpass -config ~/.config/rofi/rofidmenu.rasi"),
-    desc="Open LastPass"),
     Key([mod, "control"], "e", lazy.spawn(rofi_path+"menu_powermenu"),
     desc="Open power menu"),
     Key([mod], "s", lazy.spawn("switch-sound.sh"), desc="Open sound output menu"),
@@ -134,7 +132,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(**layout_theme),
+    # layout.MonadTall(**layout_theme),
     # layout.MonadWide(**layout_theme),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -143,7 +141,7 @@ layouts = [
     # layout.Zoomy(),
 ]
 
-colors = [["#282c34", "#282c34"], # panel background
+colors = [["#21242a", "#21242a"], # panel background
           ["#3d3f4b", "#434758"], # background for current screen tab
           ["#ffffff", "#ffffff"], # font color for group names
           ["#ff5555", "#ff5555"], # border line color for current tab
@@ -169,7 +167,7 @@ screens = [
                 widget.Spacer(length = 20),
             widget.GroupBox(
                        font = "Ubuntu Bold",
-                       fontsize = 16,
+                       fontsize = 17,
                        margin_y = 3,
                        margin_x = 0,
                        padding_y = 5,
@@ -189,7 +187,7 @@ screens = [
                        ),
             widget.Spacer(background = colors[0]),
             widget.Clock(
-                       fontsize=15,
+                       fontsize=17,
                        foreground = colors[2],
                        format = "%A, %B %d - %H:%M ",
                        margin = 0,
@@ -200,7 +198,7 @@ screens = [
                       text = " ",
                        foreground = colors[2],
                        padding=0,
-                       fontsize=14,
+                       fontsize=16,
                        font="FiraCode Nerd Font"
                        ),
               widget.Volume(
@@ -208,12 +206,13 @@ screens = [
                        padding = 5,
                        update_interval = 0.1,
                        volume_app = "pavucontrol",
-                       device = "pulse"
+                       device = "pulse",
+                       fontsize = 16
                        ),
                        widget.Systray(padding = 5),
                        widget.Spacer(length = 20)
             ],
-            opacity=1.0, size=20
+            opacity=1.0, size=25
         ),
     ),
 ]
