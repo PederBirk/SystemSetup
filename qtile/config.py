@@ -24,6 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from libqtile.log_utils import logger
 from typing import List  # noqa: F401
 from libqtile import qtile
 from libqtile import bar, layout, widget, hook
@@ -34,8 +35,9 @@ import os
 
 mod = "mod4"
 terminal = "kitty"
+browser = "brave"
 
-rofi_path = "/home/peder/.config/rofi/bin/"
+rofi_path = "/home/peder/.config/rofi/"
 
 keys = [
     # Media keys
@@ -93,13 +95,15 @@ keys = [
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
-    Key([mod], "Return", lazy.spawn(rofi_path+"launcher_colorful"), 
+    Key([mod], "Return", lazy.spawn(rofi_path+"launcher.sh"), 
     desc="Open rofi"),
-    Key([mod], "Tab", lazy.spawn("rofi -show window -theme ~/.config/rofi/launchers/colorful/style_2.rasi"),
+    Key([mod], "b", lazy.spawn(browser), 
+    desc="Open browser"),
+    Key([mod], "Tab", lazy.spawn(rofi_path+"windows.sh"),
     desc="Open rofi window menu"),
-    Key([mod, "control"], "e", lazy.spawn(rofi_path+"menu_powermenu"),
+    Key([mod, "control"], "e", lazy.spawn(rofi_path+"powermenu.sh"),
     desc="Open power menu"),
-    Key([mod], "s", lazy.spawn("switch-sound.sh"), desc="Open sound output menu"),
+    Key([mod], "s", lazy.spawn(rofi_path+"switch-sound.sh"), desc="Open sound output menu"),
 ]
 
 groups = [Group(i) for i in "123456789"] 
@@ -117,12 +121,22 @@ for i in groups:
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
         #     desc="move focused window to group {}".format(i.name)),
     ])
+    
+    colors = {
+        "bg": "#21242a",
+        "bg-high" : "#3d3f4b",
+        "white": "#ffffff",
+        "alert": "#ff5555",
+        "accent": "#AB47BC",
+        "gray": "#888888"
+    }
 
 layout_theme = {
     "margin": 5,
     "border_width": 2,
-    "border_focus": "#AB47BC",
-    "border_normal": "#888888"
+    "border_focus": colors["accent"],
+    "border_normal": colors["gray"],
+    "margin_on_single": 20
     }
 
 layouts = [
@@ -141,21 +155,15 @@ layouts = [
     # layout.Zoomy(),
 ]
 
-colors = [["#21242a", "#21242a"], # panel background
-          ["#3d3f4b", "#434758"], # background for current screen tab
-          ["#ffffff", "#ffffff"], # font color for group names
-          ["#ff5555", "#ff5555"], # border line color for current tab
-          ["#AB47BC", "#AB47BC"], # border line color for 'other tabs' and color for 'odd widgets'
-          ["#4f76f7", "#4f76f7"], # color for the 'even widgets'
-          ["#AB47BC", "#AB47BC"], # window name
-          ["#888888", "#888888"]] # background for inactive screens
+
 
 
 widget_defaults = dict(
     font="Ubuntu",
     fontsize = 14,
     padding = 2,
-    background=colors[0]
+    background=colors["bg"],
+    foregroud = colors["white"]
 )
 
 extension_defaults = widget_defaults.copy()
@@ -165,70 +173,56 @@ screens = [
         top=bar.Bar(
             [
                 widget.Spacer(length = 20),
-            widget.GroupBox(
-                       font = "Ubuntu Bold",
-                       fontsize = 17,
-                       margin_y = 3,
-                       margin_x = 0,
-                       padding_y = 5,
-                       padding_x = 3,
-                       borderwidth = 3,
-                       active = colors[2],
-                       inactive = colors[7],
-                       rounded = False,
-                       highlight_color = colors[1],
-                       highlight_method = "line",
-                       this_current_screen_border = colors[6],
-                       this_screen_border = colors [4],
-                       other_current_screen_border = colors[6],
-                       other_screen_border = colors[4],
-                       foreground = colors[2],
-                       background = colors[0]
-                       ),
-            widget.Spacer(background = colors[0]),
-            widget.Clock(
-                       fontsize=17,
-                       foreground = colors[2],
-                       format = "%A, %B %d - %H:%M ",
-                       margin = 0,
-                       padding = 0),
-                       
-                       widget.Spacer(background = colors[0]),
-              widget.TextBox(
-                      text = " ",
-                       foreground = colors[2],
-                       padding=0,
-                       fontsize=16,
-                       font="FiraCode Nerd Font"
-                       ),
-              widget.Volume(
-                       foreground = colors[2],
-                       padding = 5,
-                       update_interval = 0.1,
-                       volume_app = "pavucontrol",
-                       device = "pulse",
-                       fontsize = 16
-                       ),
-                       widget.Systray(padding = 5),
-                       widget.Spacer(length = 20)
+                widget.GroupBox(
+                    font = "Ubuntu Bold",
+                    fontsize = 17,
+                    margin_y = 3,
+                    margin_x = 0,
+                    padding_y = 5,
+                    padding_x = 3,
+                    borderwidth = 3,
+                    active = colors["white"],
+                    inactive = colors["gray"],
+                    rounded = False,
+                    highlight_color = [colors["bg"], colors["bg-high"]],
+                    highlight_method = "line",
+                    this_current_screen_border = colors["accent"],
+                    this_screen_border = colors["accent"],
+                    other_current_screen_border = colors["accent"],
+                    other_screen_border = colors["accent"]
+                    ),
+                widget.Spacer(),
+                widget.Clock(
+                    fontsize=17,
+                    format = "%A, %B %d - %H:%M ",
+                    margin = 0,
+                    padding = 0),
+                        
+                widget.Spacer(),
+                widget.TextBox(
+                    text = " ",
+                    padding=0,
+                    fontsize=16,
+                    font="FiraCode Nerd Font"
+                    ),
+                widget.Volume(
+                    padding = 5,
+                    update_interval = 0.1,
+                    volume_app = "pavucontrol",
+                    device = "pulse",
+                    fontsize = 16
+                    ),
+                widget.Systray(padding = 5),
+                widget.Spacer(length = 20)
             ],
             opacity=1.0, size=25
         ),
     ),
 ]
 
-# Drag floating layouts.
-mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
-]
-
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[

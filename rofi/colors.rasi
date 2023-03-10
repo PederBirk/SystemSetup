@@ -1,0 +1,12 @@
+/* colors */
+
+* {
+  alpha:            #00000000;
+  background:       #282c34ff;
+  background-light: #434758FF;
+  selected:         #434758FF;
+  foreground:       #FFFFFFff;
+  accent:           #AB47BCFF;
+  on:               #66bb6a;
+  off:              #ef5350;
+}
