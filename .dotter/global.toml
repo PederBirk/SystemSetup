@@ -14,3 +14,15 @@ rofi = "~/.config/rofi"
 "starship.toml" = "~/.config/starship.toml"
 
 [default.variables]
+[default.variables.colors]
+
+"background" = "#21242a"
+"background-highlight" = "#3d3f4b"
+"gray" =  "#888888"
+"white" = "#ffffff"
+"alert" = "#ff5555"
+"accept" = "#66bb6a"
+
+"accent" =  "#c50ed2"
+"complementary1" = "#01fbfd"
+"complementary2" = "#50fa7b"

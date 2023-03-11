@@ -123,12 +123,12 @@ for i in groups:
     ])
     
     colors = {
-        "bg": "#21242a",
-        "bg-high" : "#3d3f4b",
-        "white": "#ffffff",
-        "alert": "#ff5555",
-        "accent": "#AB47BC",
-        "gray": "#888888"
+        "background": "{{colors.background}}",
+        "background-highlight" : "{{colors.background-highlight}}",
+        "white": "{{colors.white}}",
+        "alert": "{{colors.alert}}",
+        "accent": "{{colors.accent}}",
+        "gray": "{{colors.gray}}"
     }
 
 layout_theme = {
@@ -162,7 +162,7 @@ widget_defaults = dict(
     font="Ubuntu",
     fontsize = 14,
     padding = 2,
-    background=colors["bg"],
+    background=colors["background"],
     foregroud = colors["white"]
 )
 
@@ -184,7 +184,7 @@ screens = [
                     active = colors["white"],
                     inactive = colors["gray"],
                     rounded = False,
-                    highlight_color = [colors["bg"], colors["bg-high"]],
+                    highlight_color = [colors["background"], colors["background-highlight"]],
                     highlight_method = "line",
                     this_current_screen_border = colors["accent"],
                     this_screen_border = colors["accent"],
