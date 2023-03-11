@@ -1,0 +1,16 @@
+[helpers]
+
+[default]
+depends = []
+
+[default.files]
+conky = "~/.config/conky"
+dunst = "~/.config/dunst"
+fish = "~/.config/fish"
+kitty = "~/.config/kitty"
+qtile = "~/.config/qtile"
+rofi = "~/.config/rofi"
+"picom.conf" = "~/.config/picom/picom.conf"
+"starship.toml" = "~/.config/starship.toml"
+
+[default.variables]

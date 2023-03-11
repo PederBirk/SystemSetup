@@ -1,0 +1,21 @@
+[symlinks]
+"conky/conky.conf" = "/home/peder/.config/conky/conky.conf"
+"dunst/dunstrc" = "/home/peder/.config/dunst/dunstrc"
+"fish/config.fish" = "/home/peder/.config/fish/config.fish"
+"kitty/kitty.conf" = "/home/peder/.config/kitty/kitty.conf"
+"picom.conf" = "/home/peder/.config/picom/picom.conf"
+"qtile/autostart.sh" = "/home/peder/.config/qtile/autostart.sh"
+"qtile/config.py" = "/home/peder/.config/qtile/config.py"
+"rofi/colors.rasi" = "/home/peder/.config/rofi/colors.rasi"
+"rofi/confirm.rasi" = "/home/peder/.config/rofi/confirm.rasi"
+"rofi/launcher.rasi" = "/home/peder/.config/rofi/launcher.rasi"
+"rofi/launcher.sh" = "/home/peder/.config/rofi/launcher.sh"
+"rofi/list.rasi" = "/home/peder/.config/rofi/list.rasi"
+"rofi/message.rasi" = "/home/peder/.config/rofi/message.rasi"
+"rofi/powermenu.rasi" = "/home/peder/.config/rofi/powermenu.rasi"
+"rofi/powermenu.sh" = "/home/peder/.config/rofi/powermenu.sh"
+"rofi/switch-sound.sh" = "/home/peder/.config/rofi/switch-sound.sh"
+"rofi/windows.sh" = "/home/peder/.config/rofi/windows.sh"
+"starship.toml" = "/home/peder/.config/starship.toml"
+
+[templates]
