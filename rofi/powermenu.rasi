@@ -25,7 +25,7 @@ window {
     transparency:                   "real";
     border-radius:                  20px;
     location:                       center;
-    width:                       	800px;
+    width:                       	900px;
     x-offset:                       0px;
     y-offset:                       0px;
 }
@@ -66,7 +66,7 @@ inputbar {
 }
 
 listview {
-    columns:						5;
+    columns:						6;
     lines:							1;
     spacing:                        15px;
     cycle:                          true;
@@ -91,11 +91,11 @@ element {
 element-text {
     background-color: 				inherit;
     text-color:       				inherit;
-	font:							"feather 32";
+	font:							"Fira Code Nerd Font 80";
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    margin:                         40px 0px 40px 0px;
+    margin:                         0px;
 }
 
 element normal.urgent,

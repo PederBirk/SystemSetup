@@ -9,11 +9,12 @@ dir="$HOME/.config/rofi"
 rofi_command="rofi -theme $dir/powermenu.rasi"
 
 # Options
-shutdown=""
-reboot=""
-lock=""
-suspend=""
-logout=""
+shutdown="󰐥"
+reboot="󰜉"
+lock="󰌾"
+suspend="󰤄"
+logout="󰗽"
+windows="󰖳"
 
 # Confirmation
 confirm_exit() {
@@ -30,7 +31,7 @@ msg() {
 }
 
 # Variable passed to rofi
-options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
+options="$shutdown\n$reboot\n$lock\n$suspend\n$logout\n$windows"
 
 chosen="$(echo -e "$options" | $rofi_command -p "" -dmenu -selected-row 0)"
 case $chosen in
@@ -85,6 +86,16 @@ case $chosen in
 			elif [[ "$DESKTOP_SESSION" == "qtile" ]]; then
 				qtile cmd-obj -o cmd -f shutdown
 			fi
+		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+			exit 0
+        else
+			msg
+        fi
+        ;;
+    $windows)
+		ans=$(confirm_exit &)
+		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+			systemctl reboot --boot-loader-entry=auto-windows
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0
         else

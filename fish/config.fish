@@ -16,6 +16,8 @@ alias l.='exa -a | egrep "^\."'
 alias pacman='sudo pacman'
 alias pacclean='sudo pacman -Rns (pacman -Qtdq)'
 
+alias ssh='kitty +kitten ssh'
+
 # Safeties
 alias cp="cp -i"
 alias mv='mv -i'
